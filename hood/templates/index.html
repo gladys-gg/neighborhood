@@ -3,44 +3,12 @@
 {% block content %}
 {{block.super}}
 <div class="container">
-    <!-- <div class="row">
-        {% if neighborhoods %}
-        {% for neighbourhood in neighborhoods %}
 
-
-        <a href="{% url 'add_hood'%}"><button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#hoodModal">+
-            create Neighborhood</button> </a><br>
-        
-        <div class="col-md-2">
-            <div class="card">
-                <img class="card-img-top" src="{{neighbourhood.mtaani_pic.url}}" alt="Card image" style="width:100%">
-                <div class="card-body">
-                    <h4 class="card-title">{{neighbourhood.mtaani_name}}</h4>
-                    <p> <em>Location:</em> {{neighbourhood.location}}
-                        <br>
-                        <em>No of Occupants:</em>{{neighbourhood.occupants_count}}<br>
-                        <em>Plice Contacts:</em> {{neighbourhood.police_num}}<br>
-                        <em>Hospital Contacts:</em>  {{neighbourhood.hospital_num}}<br>
-                        <em>Since</em> {{neighbourhood.created_at|timesince}}<br>
-                <p>
-                    <a href="{% url 'joinhood' neighbourhood.id %}" class="btn btn-dark">Join
-                        {{neighbourhood.mtaani_name}}</a>
-                
-                </div>
-            </div>
-
-        </div>
-        {% endfor %}
-        {%else%}
-        <p>There are no Available Neighbourhoods</p>
-        {%endif%}
-
-    </div> -->
 
     <div class="row">
         {% for mtaani in mtaani%}
         <div class="col-md-4">
-       
+
         <div class="card" id="hoody">
             <img class="card-img-top img-responsive" src="{{mtaani.mtaani_pic.url}}" alt="Card image cap" height="200px;" width="300px;" />
             <div class="card-body">
