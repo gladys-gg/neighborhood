@@ -80,3 +80,14 @@ def post(request,mtaani_id):
     else:
         postform = PostForm()
     return render(request,'post.html',locals())
+
+
+def search_hood(request):
+
+    if 'name' in request.GET and request.GET["name"]:
+        search_term = request.GET.get("name")
+        searched_hoods = NeighbourHood.search_by_name(search_term)
+        print(searched_hoods)
+        message = f"{search_term}"
+
+        return render(request, 'search.html',{"message":message,"hoods": searched_hoods})
