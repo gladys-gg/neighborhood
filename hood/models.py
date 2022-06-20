@@ -100,3 +100,23 @@ class Business(models.Model):
     # update business
     def update_business(self):
         self.update()
+        
+#post model
+class Post(models.Model):
+    title = models.CharField(max_length=50,blank=True)
+    post_pic = CloudinaryField('image')
+    description = models.TextField(max_length = 150,null = True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    pub_date = models.DateTimeField(auto_now_add=True, null=True)
+    neighbourhood = models.ForeignKey(NeighbourHood, on_delete=models.CASCADE, default=1)
+    
+    def save_post(self):
+        self.save()
+
+    def delete_post(self):
+        self.delete()
+
+    @classmethod
+    def get_hood_posts(cls,id):
+        posts = Post.objects.filter(id = id)
+        return posts
