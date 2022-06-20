@@ -76,3 +76,27 @@ class Profile(models.Model):
         self.delete()
     def __str__(self):
         return str(self.user)
+    
+# business class model
+class Business(models.Model):
+    business_name = models.CharField(max_length=50)
+    email = models.EmailField(max_length=50)
+    description = models.TextField(blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    neighbourhood = models.ForeignKey(NeighbourHood, on_delete=models.CASCADE)
+    business_pic = CloudinaryField('image', blank=True, null=True)
+    
+    def __str__(self):
+        return self.business_name
+
+    # create business
+    def create_business(self):
+        self.save()
+
+    # delete business
+    def delete_business(self):
+        self.delete()
+
+    # update business
+    def update_business(self):
+        self.update()
