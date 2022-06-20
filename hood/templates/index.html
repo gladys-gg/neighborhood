@@ -3,20 +3,28 @@
 {% block content %}
 {{block.super}}
 <div class="container">
+    <h5 class="text-center">Wasee Karibuni Mtaani</h5>
+    <p class="text-center text-primary">Below are our available hoods. Join one and let's build a cohesive community </p>
+
 
 
     <div class="row">
         {% for mtaani in mtaani%}
-        <div class="col-md-4">
+        <div class="col-md-4 mb-5">
 
-        <div class="card" id="hoody">
+        <div class="card" id="hoody" style="border-radius:15px; box-shadow: 2px 2px 5px rgba(3,3,3,0.5);">
             <img class="card-img-top img-responsive" src="{{mtaani.mtaani_pic.url}}" alt="Card image cap" height="200px;" width="300px;" />
             <div class="card-body">
 
                 <p><strong>{{mtaani.mtaani_name}}</strong> {{mtaani.location}}</p>
                 <a href="{% url 'joinhood' mtaani.id %}"class="btn btn-outline-success">Join {{mtaani.mtaani_name}}</a>
-                <p class="card-text" style="font-size:14px;"><small class="text-muted">Since
+                <p class="card-text" style="font-size:14px;">
+                    <p>Police Contacts: {{mtaani.police_num}}</p>
+                    <p>Police Contacts: {{mtaani.hospital_num}}</p>
+                    <p>Population: {{mtaani.occupants_count}}</p>
+                    <small class="text-muted">Since
                         {{mtaani.created_at|timesince}}</small></p>
+
 
             </div>
         </div>

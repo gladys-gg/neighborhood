@@ -5,7 +5,6 @@ from cloudinary.models import CloudinaryField
 import datetime as dt
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from phonenumber_field.modelfields import PhoneNumberField
 
 # Create your models here.
 

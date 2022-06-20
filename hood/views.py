@@ -28,6 +28,29 @@ def profile(request):
         form=UpdateProfileForm()
     return render(request,'profile.html',{'form':form})
 
+def EditProfile(request):
+    user = request.user.id
+    profile = Profile.objects.get(user_id=user)
+
+    if request.method == "POST":
+        form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        if form.is_valid():
+            profile.profile_pic = form.cleaned_data.get('profile_pic')
+            profile.fullname = form.cleaned_data.get('fullname')
+            profile.location = form.cleaned_data.get('location')
+            profile.url = form.cleaned_data.get('url')
+            profile.bio = form.cleaned_data.get('bio')
+            profile.save()
+            return redirect('profile', profile.user.username)
+    else:
+        form = ProfileForm(instance=request.user.profile)
+
+    context = {
+        'form':form,
+    }
+    return render(request, 'editprofile.html', context)
+
+
 @login_required
 def mtaani(request, mtaani_id):
     mtaani = NeighbourHood.objects.get(id=mtaani_id)
@@ -47,10 +70,24 @@ def add_hood(request):
             upload = hoodform.save(commit=False)
             upload.profile = request.user.profile
             upload.save()
-            return redirect('home')
+            return redirect('index')
     else:
         hoodform = HoodForm()
     return render(request,'addhood.html',locals())
+
+@login_required
+def join_hood(request, mtaani_id):
+    mtaani = get_object_or_404(NeighbourHood, id=mtaani_id)
+    request.user.profile.neighbourhood = mtaani
+    request.user.profile.save()
+    return redirect('mtaani', mtaani_id = mtaani.id)
+
+@login_required
+def leave_hood(request, mtaani_id):
+    mtaani = get_object_or_404(NeighbourHood, id=mtaani_id)
+    request.user.profile.neighbourhood = None
+    request.user.profile.save()
+    return redirect('index')
 
 
 def createbusiness(request,mtaani_id):
@@ -62,7 +99,7 @@ def createbusiness(request,mtaani_id):
             business.neighbourhood = mtaani
             business.user = request.user
             business.save()
-        return redirect('neighbourhood', mtaani_id=mtaani.id)
+        return redirect('mtaani', mtaani_id=mtaani.id)
     else:
         businessform = BusinessForm()
     return render(request,'business.html',locals())
@@ -76,7 +113,7 @@ def post(request,mtaani_id):
             post.neighbourhood = mtaani
             post.user = request.user
             post.save()
-        return redirect('neighbourhood', mtaani_id=mtaani.id)
+        return redirect('mtaani', mtaani_id=mtaani.id)
     else:
         postform = PostForm()
     return render(request,'post.html',locals())
@@ -106,7 +143,7 @@ def register(request):
             user = authenticate(username=username, password=password)
             login(request,user)
             messages.success(request, f'Account created for { username }!!')
-            return redirect('home')
+            return redirect('index')
 
     else:
         form = UserRegisterForm()
@@ -118,4 +155,4 @@ def register(request):
 def signout(request):  
     logout(request) 
 
-    return redirect('home')
+    return redirect('index')

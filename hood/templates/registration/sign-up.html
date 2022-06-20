@@ -5,9 +5,9 @@
 <div class="container">
 <div class="row">
 <!-- Empty div -->
-<div class="col-md-6">
+<div class="col-md-4">
     </div>
-<div class="col-md-6">
+<div class="col-md-4">
     {% if form.errors %}
     <p class="text-danger"> Some Information Might be Incorrect </p>
     {% endif %}
@@ -19,7 +19,7 @@
         <form  action="" method="post">
         {% csrf_token %}
         {{ form|crispy }}
-        <div class="form-group">
+        <div class="form-group mt-3">
             <input type="submit" class="btn btn-dark" value="Create Account">
         </div>
         <input type="hidden" name="next" value="{{next}}">
@@ -28,6 +28,7 @@
     </div>
     </div>
 </div>
+<div class="col-md-4"></div>
 </div>
 </div>
 {% endblock %}

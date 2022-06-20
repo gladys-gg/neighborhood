@@ -2,8 +2,10 @@ from . import views
 from django.urls import path
 
 urlpatterns=[
-    path('', views.home, name='home'),
+    path('', views.index, name='index'),
     path('search/', views.search_hood, name='search_hoods'),
+        # Profile Section
+    path('profile/edit', views.EditProfile, name="editprofile"),
     
     path('mtaani/<mtaani_id>',views.mtaani,name='mtaani'),
     path('hood/', views.add_hood, name='add_hood'),

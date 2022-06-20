@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %} 
+{% load static %}
+{% block content %}
+<br><br>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<script src="https://kit.fontawesome.com/fc1e235b2e.js"></script>
+<title>Awwards Profile Form</title>
+</head>
+
+<body>
+
+
+    <div class="container m-4">
+    <div class="phone-app-ddemo">
+    <div class="form-data card" style="align-items: center;margin-left: 30px;border:1px solid #ccc; border-radius: 5px;">
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+        <div class="logo">
+            <h3 style="padding: 20px; font-size: 20px;color: rgb(76, 164, 223);">Edit Profile</h3>
+        </div>
+            {{form.as_p}}
+        <button class="btn btn-dark mb-5" type="submit">Update Profile</button>
+        <!-- <a href="index.html" class="form-btn" type="submit">Log in</a> -->
+        
+        </form>
+        
+    </div>
+    </div>
+
+
+</div>
+
+</body>
+
+</html>
+{% endblock content %}
