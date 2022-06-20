@@ -44,3 +44,35 @@ class NeighbourHood(models.Model):
     
     def __str__(self):
         return self.mtaani_name
+    
+
+#User Model
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
+    
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    profile_pic = CloudinaryField('image')
+    bio = models.TextField(max_length=500, blank=True, null=True)
+    phone_number= models.CharField(max_length=50, blank=True, null=True)
+    joined_on=models.DateTimeField(auto_now=True)
+    neighbourhood = models.ForeignKey(NeighbourHood, on_delete=models.CASCADE,null=True)
+
+
+    def update(self):
+        self.save()
+
+    def save_profile(self):
+        self.save()
+
+    def delete_profile(self):
+        self.delete()
+    def __str__(self):
+        return str(self.user)
