@@ -28,3 +28,14 @@ def profile(request):
         form=UpdateProfileForm()
     return render(request,'profile.html',{'form':form})
 
+@login_required
+def mtaani(request, mtaani_id):
+    mtaani = NeighbourHood.objects.get(id=mtaani_id)
+    postform = PostForm()
+    businessform = BusinessForm()
+    current_user = request.user
+    business = Business.objects.filter(neighbourhood_id=mtaani)
+    users = Profile.objects.filter(neighbourhood=mtaani)
+    posts = Post.objects.filter(neighbourhood=mtaani)
+    return render(request, 'mtaani.html', {'postform':postform, 'businessform': businessform, 'users':users,'current_user':current_user, 'mtaani':mtaani,'business':business,'posts':posts})
+
