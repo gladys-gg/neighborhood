@@ -28,6 +28,8 @@ def profile(request):
         form=UpdateProfileForm()
     return render(request,'profile.html',{'form':form})
 
+
+@login_required
 def EditProfile(request):
     user = request.user.id
     profile = Profile.objects.get(user_id=user)
@@ -89,7 +91,7 @@ def leave_hood(request, mtaani_id):
     request.user.profile.save()
     return redirect('index')
 
-
+@login_required
 def createbusiness(request,mtaani_id):
     mtaani = NeighbourHood.objects.get(id=mtaani_id)
     if request.method == 'POST':
@@ -104,6 +106,7 @@ def createbusiness(request,mtaani_id):
         businessform = BusinessForm()
     return render(request,'business.html',locals())
 
+@login_required
 def post(request,mtaani_id):
     mtaani = NeighbourHood.objects.get(id=mtaani_id)
     if request.method == 'POST':
@@ -121,8 +124,8 @@ def post(request,mtaani_id):
 
 def search_hood(request):
 
-    if 'name' in request.GET and request.GET["name"]:
-        search_term = request.GET.get("name")
+    if 'neighbourhood' in request.GET and request.GET["neighbourhood"]:
+        search_term = request.GET.get("mtaani_name")
         searched_hoods = NeighbourHood.search_by_name(search_term)
         print(searched_hoods)
         message = f"{search_term}"

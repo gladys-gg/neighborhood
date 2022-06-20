@@ -100,6 +100,8 @@ class Business(models.Model):
     def update_business(self):
         self.update()
         
+
+        
 #post model
 class Post(models.Model):
     title = models.CharField(max_length=50,blank=True)
