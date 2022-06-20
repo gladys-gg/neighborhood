@@ -1,0 +1,21 @@
+body{
+    font-family: 'Lobster Two', cursive;
+    font-family: 'Satisfy', cursive;
+    background-color: yellow;
+}
+
+
+@media (min-width: 992px) {
+    #intro {
+    height: 80vh !important;
+    }
+}
+#intro{
+    background-image:url(https://t3.ftcdn.net/jpg/04/34/07/98/360_F_434079844_8N5baGZjWTp3PumhmXiBnn99kiMUbgZZ.jpg) ;
+    background-repeat: no-repeat;
+    background-size: cover ;
+
+}
+.text-dark{
+    font-weight: 800;
+}
