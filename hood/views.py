@@ -91,3 +91,31 @@ def search_hood(request):
         message = f"{search_term}"
 
         return render(request, 'search.html',{"message":message,"hoods": searched_hoods})
+    
+def register(request):
+    if request.method == "POST":
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+            # Profile.get_or_create(user=request.user)
+            
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+
+            user = authenticate(username=username, password=password)
+            login(request,user)
+            messages.success(request, f'Account created for { username }!!')
+            return redirect('home')
+
+    else:
+        form = UserRegisterForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'registration/sign-up.html', context)
+
+def signout(request):  
+    logout(request) 
+
+    return redirect('home')
