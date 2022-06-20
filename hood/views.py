@@ -51,3 +51,18 @@ def add_hood(request):
     else:
         hoodform = HoodForm()
     return render(request,'addhood.html',locals())
+
+
+def createbusiness(request,mtaani_id):
+    mtaani = NeighbourHood.objects.get(id=mtaani_id)
+    if request.method == 'POST':
+        businessform = BusinessForm(request.POST, request.FILES)
+        if businessform.is_valid():
+            business = businessform.save(commit=False)
+            business.neighbourhood = mtaani
+            business.user = request.user
+            business.save()
+        return redirect('neighbourhood', mtaani_id=mtaani.id)
+    else:
+        businessform = BusinessForm()
+    return render(request,'business.html',locals())
