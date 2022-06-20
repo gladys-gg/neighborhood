@@ -1,0 +1,68 @@
+{% extends 'base.html'%}
+
+{% load crispy_forms_tags %} 
+{% block content %}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="text-center">Welcome  to {{mtaani.mtaani_name}} Hood</h3>
+            <h4 class="text-center">{{mtaani.description}}" </h4><br><br>
+            <div style="align-items: center;">
+                <a  href="{% url 'post' mtaani.id %}" class="btn btn-outline-primary " style="border-radius: 10px;margin-right: 30px; margin-left: 20px;">Post Updates</a>
+                <a href="{% url 'createbusiness' mtaani.id %}" class="btn btn-outline-primary" style="border-radius: 10px; margin-right: 30px;">Add a Business</a>
+                {% if request.user.profile.neighbourhood == mtaani %}
+                <a href="{% url 'leavehood' mtaani.id %}" class="btn btn-outline-danger" style="border-radius: 10px; margin-right: 30px;">Leave Hood</a>
+                {% endif %}
+            </div>
+
+        </div> 
+        
+        <div class="col-md-1"></div>
+        <div class="col-md-12 mt-5">
+            <h4 class="text-center">Businesses In The Estate</h4>
+            {%if business%}
+            {% for business in business%}
+            <div class="card" style="width:300px">
+                <img class="card-img-top" src="{{business.business_pic.url}}" alt="Card image" style="width:100%">
+            <div class="card-body">
+                <h5 class="card-title" >{{business.business_name}}</h4>
+                <p>{{business.description}}</p>
+                
+                
+            </div>
+            </div>
+        {% endfor %}
+        {%else%}
+        <p>There are no Available Businesses</p>
+        {%endif%}
+    
+    </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-12 mt-5">
+        <h4 class="text-center">Updates</h4>
+        {%if posts%}
+        {% for post in posts%}
+        <div class="card" style="width:300px">
+            <img class="card-img-top" src="{{post.post_pic.url}}" alt="Card image" style="width:100%;">
+            <div class="card-body">
+                <h4 class="card-title">{{post.title}}</h4>
+                <p class="card-content" >{{post.description}}</p>
+                <h4>Posted <small> {{post.pub_date|timesince}}</small> by:</h4>
+                <h6 class="text-muted"> <small>{{post.user}}</small></h6>
+                
+                
+            </div>
+            </div>
+        {% endfor %}
+        {%else%}
+        <p>There are no Available posts</p>
+        {%endif%}
+</div>
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+{% endblock %}
