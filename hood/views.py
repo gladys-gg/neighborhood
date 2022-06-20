@@ -33,7 +33,7 @@ def EditProfile(request):
     profile = Profile.objects.get(user_id=user)
 
     if request.method == "POST":
-        form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
         if form.is_valid():
             profile.profile_pic = form.cleaned_data.get('profile_pic')
             profile.fullname = form.cleaned_data.get('fullname')
@@ -41,9 +41,9 @@ def EditProfile(request):
             profile.url = form.cleaned_data.get('url')
             profile.bio = form.cleaned_data.get('bio')
             profile.save()
-            return redirect('profile', profile.user.username)
+            return redirect('profile', profile.user.id)
     else:
-        form = ProfileForm(instance=request.user.profile)
+        form = UpdateProfileForm(instance=request.user.profile)
 
     context = {
         'form':form,
@@ -152,7 +152,5 @@ def register(request):
     }
     return render(request, 'registration/sign-up.html', context)
 
-def signout(request):  
-    logout(request) 
-
+def signout(request): 
     return redirect('index')
