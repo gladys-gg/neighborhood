@@ -30,3 +30,9 @@ class BusinessForm(forms.ModelForm):
     class Meta:
         model = Business
         fields = ('business_name','description','business_pic')
+
+class HoodForm(forms.ModelForm):
+    class Meta:
+        model = NeighbourHood
+        exclude = ('admin',)
+        
