@@ -144,6 +144,12 @@ cloudinary.config(
     api_secret = "nu9Z6skg5fsat9AYSvXR56ER7u0" 
 )
 
+LOGIN_REDIRECT_URL = 'home'
+
+LOGOUT_REDIRECT_URL = 'home'
+
+LOGIN_URL ='sign-in'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
