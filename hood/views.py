@@ -66,3 +66,17 @@ def createbusiness(request,mtaani_id):
     else:
         businessform = BusinessForm()
     return render(request,'business.html',locals())
+
+def post(request,mtaani_id):
+    mtaani = NeighbourHood.objects.get(id=mtaani_id)
+    if request.method == 'POST':
+        postform = PostForm(request.POST, request.FILES)
+        if postform.is_valid(): 
+            post = postform.save(commit=False)
+            post.neighbourhood = mtaani
+            post.user = request.user
+            post.save()
+        return redirect('neighbourhood', mtaani_id=mtaani.id)
+    else:
+        postform = PostForm()
+    return render(request,'post.html',locals())
