@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import get_object_or_404, render,redirect
 from .models import Business, NeighbourHood, Post, Profile
 from django.contrib.auth.decorators import login_required
-from .forms import UpdateProfileForm,NeighbourhoodForm,PostForm,BusinessForm, UserRegisterForm
+from .forms import *
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
@@ -39,3 +39,15 @@ def mtaani(request, mtaani_id):
     posts = Post.objects.filter(neighbourhood=mtaani)
     return render(request, 'mtaani.html', {'postform':postform, 'businessform': businessform, 'users':users,'current_user':current_user, 'mtaani':mtaani,'business':business,'posts':posts})
 
+@login_required
+def add_hood(request):
+    if request.method == 'POST':
+        hoodform = HoodForm(request.POST, request.FILES)
+        if hoodform.is_valid():
+            upload = hoodform.save(commit=False)
+            upload.profile = request.user.profile
+            upload.save()
+            return redirect('home')
+    else:
+        hoodform = HoodForm()
+    return render(request,'addhood.html',locals())
