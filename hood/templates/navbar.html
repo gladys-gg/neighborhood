@@ -27,9 +27,7 @@
             
             <div class="navbar-nav ms-auto">
             {% if current_user.is_authenticated %}
-                <a class="nav-item nav-link" href="{% url 'createbusiness' mtaani.id %}">Account</a>
-                <a class="nav-item nav-link " href="{% url 'post' mtaani.id %}">New Post</a>
-                <a class="nav-item nav-link" href="{% url 'profile' %}">Logout</a>
+                <a class="nav-item nav-link" href="{% url 'profile' %}">Account</a>
             {%else%}
                 <a class="nav-item nav-link" href="{% url 'sign-up' %}">SignUp</a>
                 <a class="nav-item nav-link" href="{% url 'sign-in' %}">SignIn</a>

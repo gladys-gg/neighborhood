@@ -27,6 +27,7 @@ urlpatterns = [
 
     path('sign-up/',views.register,name='sign-up'),
     path('login/',auth_views.LoginView.as_view(template_name = 'registration/sign-in.html'),name='sign-in'),
-
+    path('sign-out/', views.signout, name='sign-out'),
     path('user/', profile, name='profile'),
+    # path('<username>/', UserProfile, name='profile'),
 ]
