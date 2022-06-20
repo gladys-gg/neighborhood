@@ -12,3 +12,19 @@ from django.contrib.auth import authenticate, login
 def index(request):
     mtaani = NeighbourHood.objects.all()
     return render(request, 'index.html',{'mtaani':mtaani})
+
+def profile(request):
+#Get the profile
+    current_user=request.user
+    profile = Profile.objects.filter(id=current_user.id).first()
+    if request.method == 'POST':
+        profileform = UpdateProfileForm(request.POST,request.FILES,instance=profile)
+        if  profileform.is_valid:
+            profileform.save(commit=False)
+            profileform.user=request.user
+            profileform.save()
+            return redirect('profile')
+    else:
+        form=UpdateProfileForm()
+    return render(request,'profile.html',{'form':form})
+
