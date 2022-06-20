@@ -20,10 +20,11 @@
         </div> 
         
         <div class="col-md-1"></div>
-        <div class="col-md-12 mt-5">
+        <div class="row mb-5 mt-5">
             <h4 class="text-center">Businesses In The Estate</h4>
             {%if business%}
             {% for business in business%}
+            <div class="col-md-4">
             <div class="card" style="width:300px">
                 <img class="card-img-top" src="{{business.business_pic.url}}" alt="Card image" style="width:100%">
             <div class="card-body">
@@ -33,6 +34,7 @@
                 
             </div>
             </div>
+        </div>
         {% endfor %}
         {%else%}
         <p>There are no Available Businesses</p>
@@ -40,11 +42,14 @@
     
     </div>
     <div class="col-md-1"></div>
-    <div class="col-md-12 mt-5">
+    <div class="row mt-5 mb-5">
+
         <h4 class="text-center">Updates</h4>
         {%if posts%}
         {% for post in posts%}
-        <div class="card" style="width:300px">
+        <div class="col-md-4">
+
+        <div class="card" style="border-radius:15px; box-shadow: 2px 2px 5px rgba(3,3,3,0.5); width: 300px;">
             <img class="card-img-top" src="{{post.post_pic.url}}" alt="Card image" style="width:100%;">
             <div class="card-body">
                 <h4 class="card-title">{{post.title}}</h4>
@@ -55,7 +60,9 @@
                 
             </div>
             </div>
+        </div>
         {% endfor %}
+   
         {%else%}
         <p>There are no Available posts</p>
         {%endif%}
